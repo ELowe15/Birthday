@@ -2,50 +2,63 @@ body {
   margin: 0;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   background: linear-gradient(to bottom, #ffe6f0, #fff0f5);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   overflow-x: hidden;
   overflow-y: auto;
+  background-attachment: fixed; /* Ensure gradient fills full page */
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
 #card-wrapper {
   perspective: 1000px;
-  width: 100%;
-  max-width: 600px;
+  width: 90vw;
+  max-width: 400px;
+  height: 600px; /* Tall card shape */
+  position: relative;
   margin: 40px auto;
 }
 
 #card {
   width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
   transition: transform 1s;
   position: relative;
   cursor: grab;
 }
 
-#card.open {
-  transform: rotateY(180deg);
-}
-
 .card-face {
   background-color: #ffc0cb;
   border-radius: 20px;
-  padding: 40px 20px;
+  padding: 30px 20px;
   width: 100%;
+  height: 100%;
   backface-visibility: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 0;
   left: 0;
   user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
+
 .front {
+  background-color: #ffc0cb;
   z-index: 2;
   text-align: center;
 }
 
 .inside {
-  transform: rotateY(180deg);
   background-color: #fff0f5;
+  transform: rotateY(180deg);
   text-align: center;
 }
 

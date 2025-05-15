@@ -56,5 +56,46 @@ function spawnBalloon() {
   Draggable.create(balloon);
 }
 
+for (let i = 0; i < 100; i++) {
+  spawnBalloon();
+}
+
+function spawnFallingFlower() {
+  const flower = document.createElement("div");
+  flower.textContent = [
+  "🌸", "🌼", "🌻", "🌹", "🌷", "🌺", "💐", "🏵️",
+  "🪷", "🪻", "💮"
+][Math.floor(Math.random() * 6)];
+  flower.style.position = "fixed";
+  flower.style.top = "-50px";
+  flower.style.fontSize = Math.random() * 20 + 20 + "px";
+  flower.style.opacity = 0.8;
+  flower.style.zIndex = "5";
+
+  // Set starting left in pixels based on viewport width
+  const startLeft = Math.random() * window.innerWidth;
+  flower.style.left = `${startLeft}px`;
+
+  document.body.appendChild(flower);
+
+  let y = -50;
+  const fallSpeed = Math.random() * 1.5 + 0.5;
+  const swayAmount = Math.random() * 2 - 1;
+
+  const fallInterval = setInterval(() => {
+    y += fallSpeed;
+    const sway = Math.sin(y / 20) * swayAmount * 5;
+    flower.style.top = `${y}px`;
+    flower.style.left = `${startLeft + sway}px`;
+
+    if (y > window.innerHeight + 50) {
+      clearInterval(fallInterval);
+      flower.remove();
+    }
+  }, 16);
+}
+
+
 // Spawn balloons every 800ms
-setInterval(spawnBalloon, 800);
+setInterval(spawnBalloon, 500);
+setInterval(spawnFallingFlower, 1000);
