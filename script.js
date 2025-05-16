@@ -1,3 +1,5 @@
+  let correct = false;
+
 document.addEventListener("DOMContentLoaded", () => {
   const popupModal = document.getElementById("popup-modal");
   const cardWrapper = document.getElementById("card-wrapper");
@@ -11,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const correctAnswer = "peanut"; // Hardcoded answer
 
   let wrongAttempts = 0;
-
 
   // Focus input automatically
   answerInput.focus();
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Spawn balloons every 800ms
       setInterval(spawnBalloon, 700);
+      correct = true;
     } else {
       // Incorrect
       wrongAttempts++;
@@ -66,8 +68,12 @@ function handleStart(e) {
 }
 
 function handleMove(e) {
+
   const currentX = e.touches ? e.touches[0].clientX : e.clientX;
   const diffX = currentX - startX;
+    if (!correct){
+    return;
+  }
   if (!cardOpen && diffX < -50) {
     card.classList.add("open");
     cardOpen = true;
@@ -107,56 +113,48 @@ const pastelColors = [
   "#FFF5BA"  // Soft Yellow
 ];
 
-
 function spawnBalloon(useImage = false) {
   const balloon = document.createElement('div');
   balloon.className = 'balloon';
+  balloon.style.position = 'absolute';
+  balloon.style.top = '-100px'; // Start just above the screen
   balloon.style.left = Math.random() * window.innerWidth + 'px';
 
   if (useImage) {
-    const imageSources = [
-      'IMG_2559.jpeg',
-      'IMG_2932.jpeg',
-      'IMG_3022.jpeg',
-      'IMG_3096.jpeg',
-      'IMG_3148.jpeg',
-      'IMG_7159.jpeg'
-    ];    
-    const selectedImage = imageSources[Math.floor(Math.random() * imageSources.length)];
-    
-    // Use the image as a background
+    const imageSources = ['IMG_2559.jpeg', 'IMG_2932.jpeg', 'IMG_3022.jpeg', 'IMG_3096.jpeg', 'IMG_3148.jpeg', 'IMG_7159.jpeg'];
+    balloon.style.backgroundImage = `url(${imageSources[Math.floor(Math.random() * imageSources.length)]})`;
+    balloon.style.backgroundSize = 'cover';
+    balloon.style.backgroundPosition = 'center';
+    balloon.style.backgroundRepeat = 'no-repeat';
     balloon.style.minWidth = '80px';
     balloon.style.minHeight = '110px';
     balloon.style.maxWidth = '120px';
     balloon.style.maxHeight = '160px';
-    balloon.style.backgroundImage = `url(${selectedImage})`;
-    balloon.style.backgroundSize = 'cover';      // Fill the entire balloon shape
-    balloon.style.backgroundPosition = 'center'; // Center it
-    balloon.style.backgroundRepeat = 'no-repeat';
-    balloon.style.backgroundColor = 'transparent'; // Just in case
-
+    balloon.style.backgroundColor = 'transparent'; // no background color
   } else {
-    // Normal pastel colored balloon
     balloon.style.backgroundColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
   }
 
   document.body.appendChild(balloon);
 
+  const screenHeight = Math.max(window.innerHeight, document.documentElement.clientHeight);
+
   gsap.to(balloon, {
-    y: window.innerHeight + 100,
-    duration: 5 + Math.random() * 3,
-    ease: 'power1.in',
+    y: screenHeight + 150, // Fall well past the screen bottom
+    duration: 6 + Math.random() * 5,
+    ease: 'power1.out',
     onComplete: () => {
       balloon.remove();
     }
   });
 
   balloon.addEventListener('click', () => {
-    const pop = new Audio('bubble-pop-epic-stock-media-1-00-00.mp3');
+    const pop = new Audio('pop.mp3');
     pop.play();
     gsap.to(balloon, { scale: 0, opacity: 0, duration: 0.3, onComplete: () => balloon.remove() });
   });
 }
+
 
 function spawnFallingFlower() {
   const flower = document.createElement("div");
