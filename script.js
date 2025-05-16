@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Spawn balloons every 800ms
-      setInterval(spawnBalloon, 500);
-      setInterval(() => spawnBalloon(true), 1000); // ✅ correct
+      setInterval(spawnBalloon, 700);
+      setInterval(() => spawnBalloon(true), 1500); // ✅ correct
       setInterval(spawnFallingFlower, 1000);
     } else {
       // Incorrect - show feedback, clear input
@@ -97,6 +97,10 @@ function spawnBalloon(useImage = false) {
     const selectedImage = imageSources[Math.floor(Math.random() * imageSources.length)];
     
     // Use the image as a background
+    balloon.style.minWidth = '80px';
+    balloon.style.minHeight = '110px';
+    balloon.style.maxWidth = '120px';
+    balloon.style.maxHeight = '160px';
     balloon.style.backgroundImage = `url(${selectedImage})`;
     balloon.style.backgroundSize = 'cover';      // Fill the entire balloon shape
     balloon.style.backgroundPosition = 'center'; // Center it
