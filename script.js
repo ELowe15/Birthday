@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const correctAnswer = "peanut"; // Hardcoded answer
 
+  let wrongAttempts = 0;
+
+
   // Focus input automatically
   answerInput.focus();
 
@@ -27,8 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
       // Spawn balloons every 800ms
       setInterval(spawnBalloon, 700);
     } else {
-      // Incorrect - show feedback, clear input
-      feedback.textContent = "Come on you can do better than that!";
+      // Incorrect
+      wrongAttempts++;
+      if (wrongAttempts === 1) {
+        feedback.textContent = "You can do better than that. Try again for a hint.";
+      } else if (wrongAttempts === 2) {
+        feedback.textContent = "Hint: This aroma is always in the air around Rudy!";
+      } else {
+        feedback.textContent = "Hint: Her smell in the morning.";
+      }
       answerInput.value = "";
       answerInput.focus();
     }
