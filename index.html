@@ -9,11 +9,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
 </head>
 <body>
+  <div id="popup-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Prove you are Kelly by answering this riddle:</h2>
+      <img src="peanut.png" alt="Riddle Image" class="modal-image" />
+      <p class="riddle-text">How does it smell?</p>
+      <input type="text" id="riddle-answer" placeholder="Your answer here" />
+      <button id="submit-answer">Submit</button>
+      <p id="feedback" class="feedback-text"></p>
+    </div>
+  </div>
   <div id="card-wrapper">
     <div id="card" class="step-0">
       <div id="card-front" class="card-face front">
         <h1>🎉 Happy Birthday! 🎉</h1>
-        <p>Swipe left or drag left to open the card</p>
+        <p>Swipe to open the card</p>
       </div>
       <div id="card-inside" class="card-face inside">
         <audio id="bg-music" loop>
@@ -21,11 +31,6 @@
         </audio>
         <h1>Happy Birthday, Love!</h1>
         <p>This is your special birthday card 🌸</p>
-        <div id="gallery">
-          <img src="placeholder1.jpg" alt="Memory 1" />
-          <img src="placeholder2.jpg" alt="Memory 2" />
-          <img src="placeholder3.jpg" alt="Memory 3" />
-        </div>
       </div>
     </div>
   </div>

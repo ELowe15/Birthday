@@ -11,6 +11,71 @@ body {
   justify-content: center;
 }
 
+/* Popup Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* above everything */
+}
+
+/* Popup Content */
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 320px;
+  width: 90vw;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 10px;
+}
+
+#riddle-answer {
+  width: 90%;
+  max-width: 300px;
+  padding: 0.6rem 0.8rem;
+  margin: 1rem auto 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  display: block;
+}
+
+
+#submit-answer {
+  background-color: #ff69b4;
+  border: none;
+  color: white;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#submit-answer:hover {
+  background-color: #ff1493;
+}
+
+.feedback-text {
+  color: red;
+  margin-top: 0.5rem;
+  min-height: 1.2rem; /* reserve space for error message */
+  font-weight: bold;
+}
+
 /* Card wrapper holds the 3D perspective */
 #card-wrapper {
   perspective: 1000px;
