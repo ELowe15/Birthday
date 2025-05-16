@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (wrongAttempts === 1) {
         feedback.textContent = "You can do better than that. Try again for a hint.";
       } else if (wrongAttempts === 2) {
-        feedback.textContent = "Hint: This aroma is always in the air around Rudy!";
+        feedback.textContent = "Hint: Her aroma is always in the air!";
       } else {
         feedback.textContent = "Hint: Her smell in the morning.";
       }
@@ -73,7 +73,6 @@ function handleMove(e) {
     cardOpen = true;
     for (let i = 0; i < 20; i++) {
         spawnBalloon(true);
-        spawnFallingFlower();
       }
     if (!cardOpened) {
       cardOpened = true;
@@ -83,7 +82,7 @@ function handleMove(e) {
   } else if (cardOpen && diffX > 50) {
     card.classList.remove("open");
     cardOpen = false;
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 40; i++) {
         spawnFallingFlower();
       }
   }
