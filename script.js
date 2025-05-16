@@ -26,8 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Spawn balloons every 800ms
       setInterval(spawnBalloon, 700);
-      setInterval(() => spawnBalloon(true), 1500); // ✅ correct
-      setInterval(spawnFallingFlower, 1000);
     } else {
       // Incorrect - show feedback, clear input
       feedback.textContent = "Come on you can do better than that!";
@@ -47,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const card = document.getElementById("card");
 const bgMusic = document.getElementById("bg-music");
+let cardOpen = false;
 let cardOpened = false;
 
 // Card flip on swipe or drag
@@ -59,12 +58,24 @@ function handleStart(e) {
 function handleMove(e) {
   const currentX = e.touches ? e.touches[0].clientX : e.clientX;
   const diffX = currentX - startX;
-  if (!cardOpened && diffX < -50) {
+  if (!cardOpen && diffX < -50) {
     card.classList.add("open");
-    cardOpened = true;
-  } else if (cardOpened && diffX > 50) {
+    cardOpen = true;
+    for (let i = 0; i < 20; i++) {
+        spawnBalloon(true);
+        spawnFallingFlower();
+      }
+    if (!cardOpened) {
+      cardOpened = true;
+      setInterval(() => spawnBalloon(true), 1500);
+      setInterval(spawnFallingFlower, 1000);
+    }
+  } else if (cardOpen && diffX > 50) {
     card.classList.remove("open");
-    cardOpened = false;
+    cardOpen = false;
+    for (let i = 0; i < 100; i++) {
+        spawnFallingFlower();
+      }
   }
 }
 
@@ -75,10 +86,18 @@ document.addEventListener("touchmove", handleMove);
 
 // Pastel colors for balloons
 const pastelColors = [
-  "#FFB6C1", "#FFDAB9", "#E6E6FA",
-  "#D1C0FF", "#FFDFD3", "#FFC0CB",
-  "#FFE4E1", "#FFF0F5"
+  "#FFB6C1", // Light Pink
+  "#FFDAB9", // Peach Puff
+  "#FFFACD", // Lemon Chiffon
+  "#E0BBE4", // Lavender
+  "#FF69B4", // Hot Pink
+  "#FFCCCB", // Soft Coral
+  "#FADADD", // Misty Rose
+  "#B5EAD7", // Mint
+  "#C5C6FF", // Periwinkle
+  "#FFF5BA"  // Soft Yellow
 ];
+
 
 function spawnBalloon(useImage = false) {
   const balloon = document.createElement('div');
