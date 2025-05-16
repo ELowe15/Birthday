@@ -1,27 +1,30 @@
+/* Reset and base layout */
 body {
   margin: 0;
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  background: linear-gradient(to bottom, #ffe6f0, #fff0f5);
-  min-height: 100vh;
+  background-color: #ffe6f0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-attachment: fixed; /* Ensure gradient fills full page */
-  background-repeat: no-repeat;
-  background-size: cover;
 }
+
+/* Card wrapper holds the 3D perspective */
 #card-wrapper {
   perspective: 1000px;
   width: 90vw;
   max-width: 400px;
-  height: 600px; /* Tall card shape */
+  height: 80vh;
+  max-height: 600px;
   position: relative;
-  margin: 40px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* The card itself flips */
 #card {
   width: 100%;
   height: 100%;
@@ -31,10 +34,15 @@ body {
   cursor: grab;
 }
 
+#card.open {
+  transform: rotateY(-180deg);
+}
+
+/* Card face styling */
 .card-face {
   background-color: #ffc0cb;
   border-radius: 20px;
-  padding: 30px 20px;
+
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
@@ -46,21 +54,26 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-
 .front {
-  background-color: #ffc0cb;
   z-index: 2;
-  text-align: center;
+  background-color: #ffc0cb;
+}
+
+.middle {
+  background-color: #fffacd;
+  transform: rotateY(-180deg);
+  z-index: 2;
 }
 
 .inside {
+  transform: rotateY(-180deg);
   background-color: #fff0f5;
-  transform: rotateY(180deg);
-  text-align: center;
 }
+
 
 #gallery img {
   width: 90%;
@@ -70,8 +83,12 @@ body {
 }
 
 .balloon {
-  width: 50px;
-  height: 70px;
+  width: 8vw;
+  height: 11vw;
+  min-width: 40px;
+  min-height: 55px;
+  max-width: 60px;
+  max-height: 80px;
   border-radius: 50% 50% 45% 45%;
   position: fixed;
   top: -100px;

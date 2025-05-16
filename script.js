@@ -10,12 +10,15 @@ function handleStart(e) {
 }
 
 function handleMove(e) {
-  if (cardOpened) return;
-  let x = e.touches ? e.touches[0].clientX : e.clientX;
-  if (startX - x > 100) {
+  const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+  const diffX = currentX - startX;
+  if (!cardOpened && diffX < -50) {
     card.classList.add("open");
     cardOpened = true;
     bgMusic.play();
+  } else if (cardOpened && diffX > 50) {
+    card.classList.remove("open");
+    cardOpened = false;
   }
 }
 
@@ -52,12 +55,6 @@ function spawnBalloon() {
     pop.play();
     gsap.to(balloon, { scale: 0, opacity: 0, duration: 0.3, onComplete: () => balloon.remove() });
   });
-
-  Draggable.create(balloon);
-}
-
-for (let i = 0; i < 100; i++) {
-  spawnBalloon();
 }
 
 function spawnFallingFlower() {
@@ -95,6 +92,9 @@ function spawnFallingFlower() {
   }, 16);
 }
 
+for (let i = 0; i < 100; i++) {
+  spawnBalloon();
+}
 
 // Spawn balloons every 800ms
 setInterval(spawnBalloon, 500);
